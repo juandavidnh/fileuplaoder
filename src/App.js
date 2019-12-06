@@ -7,9 +7,21 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      searchTerm: '',
-      filterOption: 'All'
+      searchTerm: 'cats',
+      filterOption: 'Uploaded'
     }
+  }
+
+  updateSearchTerm(term){
+    this.setState({
+      searchTerm: term
+    })
+  }
+
+  updateFilterOption(option){
+    this.setState({
+      filterOption: option
+    })
   }
 
   render(){
@@ -17,11 +29,14 @@ class App extends React.Component {
       <div className='App'>
         <SearchBar 
           searchTerm={this.state.searchTerm}
-          filterOption={this.state.searchTerm}/>
+          filterOption={this.state.filterOption}
+          handleUpdate={ term => this.updateSearchTerm(term) }
+          handleFilterChange={ option => this.updateFilterOption(option) }/>
         <FilterableList 
+          files={this.props.files}
           searchTerm={this.state.searchTerm}
-          filterOption={this.state.filterOptions}
-          files={this.props.files} />
+          filterOption={this.state.filterOption}
+           />
       </div>
     );
   }
